@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+# Intended to be ignored, but the local credentials.txt file was committed by mistake.
