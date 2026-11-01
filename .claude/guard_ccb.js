@@ -160,6 +160,12 @@ function main() {
       emit({ ...body, continue: false, stopReason: "LAB_POLICY_DENY" });
       return;
     }
+    if (AGENT === "codex") {
+      // Codex does not support continue/stopReason on PreToolUse; returning
+      // them marks the hook failed and lets the tool run.
+      emit(body);
+      return;
+    }
     emit({ ...body, continue: true, decision: "deny", reason });
   };
 

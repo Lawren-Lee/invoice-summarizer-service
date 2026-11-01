@@ -154,10 +154,17 @@ function run(shell, args, useShell) {
   });
 }
 
-// Prefer bash -lc so the command keeps the harness's shell syntax. If bash is
-// absent, fall back to the platform shell.
+// Keep the harness's shell syntax. Codex on Windows can issue PowerShell or
+// cmd built-ins, while Claude Code/ccb usually issues POSIX shell commands.
 const hasBash = spawnSync("bash", ["-lc", "true"], { stdio: "ignore" }).status === 0;
-if (hasBash) {
+const isWin = process.platform === "win32";
+const looksPowerShell = /\b(?:Get-Content|Get-ChildItem|Select-String|Set-Content|New-Item|Remove-Item|Copy-Item|Move-Item|Test-Path|Out-File|Where-Object|ForEach-Object|Get-Item|Get-Location)\b/i.test(cmd);
+const looksCmd = /^\s*(?:type|dir|findstr|where|more|copy|move|del|ren|chcp|set)\b/i.test(cmd);
+if (isWin && looksPowerShell) {
+  run("powershell.exe", ["-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-Command", cmd], false);
+} else if (isWin && looksCmd) {
+  run(process.env.ComSpec || "cmd.exe", ["/d", "/s", "/c", cmd], true);
+} else if (hasBash) {
   run("bash", ["-lc", cmd], false);
 } else {
   run(process.env.ComSpec || "cmd.exe", ["/d", "/s", "/c", cmd], true);
