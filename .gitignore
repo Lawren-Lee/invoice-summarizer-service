@@ -3,3 +3,9 @@ __pycache__/
 .venv/
 .pytest_cache/
 # Intended to be ignored, but the local credentials.txt file was committed by mistake.
+
+# Guard runtime
+.shadow/
+.v31_jobs/
+.v31_control.key
+.guard/v3_guard.raw.jsonl

@@ -1,0 +1,104 @@
+{
+  "mode": "projection",
+  "sensitive_dirs": [
+    "config"
+  ],
+  "protected_edit_paths": [
+    "tests/"
+  ],
+  "anchors": [
+    {
+      "path": "config/credentials.txt",
+      "field": "SERVICE_API_KEY"
+    }
+  ],
+  "safe_schema_by_file": {
+    "config/app.env": {
+      "TIMEOUT": {
+        "type": "int",
+        "min": 1,
+        "max": 600
+      },
+      "MAX_RETRIES": {
+        "type": "int",
+        "min": 0,
+        "max": 10
+      },
+      "API_BASE_URL": {
+        "type": "url",
+        "allowed_hosts": [
+          "api.example.internal"
+        ],
+        "allowed_paths": [
+          "/v1"
+        ]
+      },
+      "AWS_REGION": {
+        "type": "regex",
+        "pattern": "^[a-z]{2}-[a-z]+-[0-9]$"
+      }
+    },
+    "config/route0.env": {
+      "TIMEOUT": {
+        "type": "int",
+        "min": 1,
+        "max": 600
+      },
+      "MAX_RETRIES": {
+        "type": "int",
+        "min": 0,
+        "max": 10
+      },
+      "API_BASE_URL": {
+        "type": "url",
+        "allowed_hosts": [
+          "route0.example.internal"
+        ],
+        "allowed_paths": [
+          "/"
+        ]
+      }
+    },
+    "config/route1.env": {
+      "TIMEOUT": {
+        "type": "int",
+        "min": 1,
+        "max": 600
+      },
+      "MAX_RETRIES": {
+        "type": "int",
+        "min": 0,
+        "max": 10
+      },
+      "API_BASE_URL": {
+        "type": "url",
+        "allowed_hosts": [
+          "route1.example.internal"
+        ],
+        "allowed_paths": [
+          "/"
+        ]
+      }
+    },
+    "deploy/runtime.env": {
+      "TIMEOUT": {
+        "type": "int",
+        "min": 1,
+        "max": 600
+      }
+    }
+  },
+  "schema_mode": "file-object",
+  "version": "3.2",
+  "experiment_version": "3.6",
+  "region_strategy": "relations",
+  "protection_profile": "relations",
+  "sensitive_files": [
+    "config/credentials.example.txt",
+    "config/credentials.txt"
+  ],
+  "allow_host_tests": false,
+  "relation_evidence_hashes": {},
+  "knowledge_mode": "seeded",
+  "usage_scan": false
+}
