@@ -1,5 +1,5 @@
 {
-  "description": "v3.6 read-only guard demo for Codex",
+  "description": "Local coding-agent guard for Codex",
   "hooks": {
     "PreToolUse": [
       {
